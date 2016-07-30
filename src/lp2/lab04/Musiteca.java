@@ -4,6 +4,7 @@ package lp2.lab04;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import javax.print.attribute.standard.RequestingUserName;
 import javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardResizeToggleHandler;
 
 public class Musiteca {
@@ -11,12 +12,15 @@ public class Musiteca {
 	private HashSet <Album> meusAlbuns; 
 	private HashSet<Album> albunsFavoritos;
 	private HashMap<String, Playlist> listaplaylists;
+	private HashSet <Musica> musicasPlaylist;
 	
 	public Musiteca() throws Exception{
 		
 		meusAlbuns = new HashSet<Album>();
 		albunsFavoritos = new HashSet<Album>();
-		listaplaylists = new HashMap();
+		listaplaylists = new HashMap<String, Playlist>();
+		musicasPlaylist = new HashSet<Musica>();
+		
 	}
 
 	public boolean addAlbum(Album album){
@@ -59,15 +63,23 @@ public class Musiteca {
 	}
 
 	public boolean contemPlaylist(String nome){
-		
 		String chaveProcurada = nome;
-		
-		if (listaplaylists.containsKey(chaveProcurada)){
-			return false;
-		
-		} return true;
-		
+		return listaplaylists.containsKey(chaveProcurada);	
 	}
 
+	
+	public boolean addPlaylist(String nomePlaylist, String nomeAlbum, int faixa){
+		if (!(listaplaylists.containsKey(nomeAlbum))){
+			listaplaylists.put(nomePlaylist, null);	
+		}
+		
+		if (meusAlbuns.contains(nomeAlbum)){
+			musicasPlaylist.add()
+		}
+		
+	}
+		
+	
+	
 }	
 
