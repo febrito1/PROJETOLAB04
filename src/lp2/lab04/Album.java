@@ -98,6 +98,10 @@ public class Album {
 		return null;
 	}
 
+	public Musica getMusica(int faixa){
+		return listaMusicas.get(faixa-1);	
+	}
+	
 	public int getDuracaoTotal() {
 		return this.duracaoTotal;
 	}

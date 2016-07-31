@@ -58,7 +58,7 @@ public class MusitecaTest {
 	}
 
 	@Test
-	public void pesquisaMusica() {
+	public void pesquisaMusica() throws Exception{
 
 		Musica sentimentoLouco = new Musica("Sentimento louco", 3, "Sertanejo");
 		Album mariliaLive = new Album("Marilia Mendonca", "DVD Ao vivo", 2015);
@@ -74,7 +74,7 @@ public class MusitecaTest {
 
 		Assert.assertEquals(1, musiteca.getTamPlaylist("Sertanejo"));
 		// verifica se a playlist Sertanejo tem uma musica com esse nome.
-		Assert.assertTrue(musiteca.contemNaPaylist("Sertanejo", "Sentimento Louco"));
+		Assert.assertTrue(musiteca.contemNaPlaylist("Sertanejo", "Sentimento Louco"));
 	}
 
 	@Test

@@ -1,25 +1,24 @@
 package lp2.lab04;
 
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-
-import javax.print.attribute.standard.RequestingUserName;
-import javax.swing.plaf.basic.BasicSplitPaneUI.KeyboardResizeToggleHandler;
 
 public class Musiteca {
 	
 	private HashSet <Album> meusAlbuns; 
 	private HashSet<Album> albunsFavoritos;
-	private HashMap<String, Playlist> listaplaylists;
-	private HashSet <Musica> musicasPlaylist;
+	private ArrayList<Musica> musicasPlaylist;
+	private HashMap<String, ArrayList<Musica>> listaplaylists;
 	
 	public Musiteca() throws Exception{
 		
 		meusAlbuns = new HashSet<Album>();
 		albunsFavoritos = new HashSet<Album>();
-		listaplaylists = new HashMap<String, Playlist>();
-		musicasPlaylist = new HashSet<Musica>();
+		listaplaylists = new HashMap<String, ArrayList<Musica>>();
+		musicasPlaylist = new ArrayList<Musica>();
 		
 	}
 
@@ -56,8 +55,8 @@ public class Musiteca {
 
 	public boolean criaPlaylist(String nome){
 		if(!(nome == null || nome.trim().isEmpty() || this.contemPlaylist(nome))){
-			listaplaylists.put(nome,null);
-			return true;
+			listaplaylists.put(nome,new ArrayList<Musica>());
+			return true;	
 		}
 		return false;
 	}
@@ -68,18 +67,79 @@ public class Musiteca {
 	}
 
 	
-	public boolean addPlaylist(String nomePlaylist, String nomeAlbum, int faixa){
-		if (!(listaplaylists.containsKey(nomeAlbum))){
-			listaplaylists.put(nomePlaylist, null);	
+	public boolean addNaPlaylist(String nomePlaylist, String nomeAlbum, int faixa)throws Exception{
+		
+		if(nomePlaylist == null || nomePlaylist.trim().isEmpty()){
+            return false;
 		}
 		
-		if (meusAlbuns.contains(nomeAlbum)){
-			musicasPlaylist.add()
+		if(!(listaplaylists.containsKey(nomePlaylist))){
+			criaPlaylist(nomePlaylist);
 		}
+		
+		if(contemAlbum(nomeAlbum) == null){
+			new Exception("Album nao pertence ao Perfil especificado");
+		}else{
+			Album album = contemAlbum(nomeAlbum);
+			
+			
+			musicasPlaylist.add(album.getMusica(faixa));
+			listaplaylists.put(nomePlaylist, musicasPlaylist);
+		
+			return true;
+		} return false;
+		
+	}
+	
+	/*Método sobrescrito*/
+	private Album contemAlbum(String nomeAlbum){
+		
+		for (Album album : meusAlbuns) {
+			if (album.getTituloAlbum().equalsIgnoreCase(nomeAlbum)){
+				return album;
+			}
+		} return null;
 		
 	}
 		
+	public int getTamPlaylist(String nome){
+		
+		if(nome == null || nome.trim().isEmpty()){return 0; } 
+		return listaplaylists.get(nome).size();
+	}
+	
+	public boolean contemNaPlaylist(String nomePlaylist, String nomeMusica){
+		
+		if(nomePlaylist == null || nomePlaylist.trim().isEmpty()){
+            return false;
+        }
+        if(nomeMusica == null || nomeMusica.trim().isEmpty()){
+            return false;
+        }
+	
+        ArrayList<Musica>  minhaLista = listaplaylists.get(nomePlaylist);
+        
+        for (Musica musica : minhaLista) {
+            if(musica.getTitulo().equalsIgnoreCase(nomeMusica)){
+                return true;
+            }
+        }
+        return false;
+    }
+	
+	@Override
+	public String toString() {
+		return "Musiteca [meusAlbuns=" + meusAlbuns + "]";
+	}
+		
+	
+	}
+			
 	
 	
-}	
+	
+	
+	
+	
+
 
